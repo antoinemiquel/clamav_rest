@@ -1,0 +1,20 @@
+docker build -t rest-python --build-arg HTTP_PROXY=$http_proxy .
+
+docker run -d --name my-rest-api -p 8080:8080 rest-python
+
+docker exec -it my-rest-api bash
+
+docker stop my-rest-api;docker rm my-rest-api
+
+################################################
+# api use 2
+################################################
+
+# get tasks
+curl -i http://localhost:8080/tasks
+
+# get task
+curl -i http://localhost:8080/tasks/1
+
+# post a file
+curl -i -X POST -F file=@lfs.pdf http://localhost:8080/files
